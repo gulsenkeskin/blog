@@ -6,13 +6,12 @@ import Single from "../../pages/Single";
 import Write from "../../pages/Write";
 import Footer from "../Footer";
 import Navbar from "../Navbar";
-
 const Layout = () => {
   return (
     <>
-      <Navbar></Navbar>
-      <Outlet></Outlet>
-      <Footer></Footer>
+      <Navbar />
+      <Outlet />
+      <Footer />
     </>
   );
 };
@@ -20,29 +19,29 @@ const Layout = () => {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout></Layout>,
+    element: <Layout />,
     children: [
       {
         path: "/",
-        element: <Home></Home>,
+        element: <Home />,
       },
       {
         path: "/post/:id",
-        element: <Home></Home>,
+        element: <Single />,
       },
       {
         path: "/write",
-        element: <Write></Write>,
+        element: <Write />,
       },
     ],
   },
   {
     path: "/register",
-    element: <Register></Register>,
+    element: <Register />,
   },
   {
     path: "/login",
-    element: <Login></Login>,
+    element: <Login />,
   },
 ]);
 
