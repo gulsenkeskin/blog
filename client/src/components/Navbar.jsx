@@ -12,23 +12,23 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="links">
-          <Link className="link" to="/?cat=art">
-            <h6>ART</h6>
+          <Link className="link" to="/?cat=react">
+            <h6>REACT.JS</h6>
           </Link>
-          <Link className="link" to="/?cat=science">
-            <h6>SCIENCE</h6>
+          <Link className="link" to="/?cat=flutter">
+            <h6>FLUTTER</h6>
           </Link>
-          <Link className="link" to="/?cat=technology">
-            <h6>TECHNOLOGY</h6>
+          <Link className="link" to="/?cat=net">
+            <h6>.NET CORE</h6>
           </Link>
-          <Link className="link" to="/?cat=cinema">
-            <h6>CINEMA</h6>
+          <Link className="link" to="/?cat=test">
+            <h6>TEST</h6>
           </Link>
-          <Link className="link" to="/?cat=design">
-            <h6>DESIGN</h6>
+          <Link className="link" to="/?cat=teknoloji">
+            <h6>TEKNOLOJİ</h6>
           </Link>
-          <Link className="link" to="/?cat=food">
-            <h6>FOOD</h6>
+          <Link className="link" to="/?cat=kitap">
+            <h6>KİTAP</h6>
           </Link>
           {/* <span>{currentUser?.username}</span>
           {currentUser ? (
@@ -44,7 +44,7 @@ const Navbar = () => {
           )}
           <span className="write">
             <Link className="link" to="/write">
-              Write
+              YAZ
             </Link>
           </span>
         </div>
