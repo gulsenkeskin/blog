@@ -6,8 +6,9 @@ const Register = () => {
     <div className="auth">
       <h1>Kayıt ol</h1>
       <form>
-        <input type="text" placeholder="kullanıcı adı"></input>
-        <input type="password" placeholder="şifre"></input>
+        <input required type="text" placeholder="kullanıcı adı"></input>
+        <input required type="email" placeholder="email"></input>
+        <input required type="password" placeholder="şifre"></input>
         <button>Giriş Yap</button>
         <p>Kullanıcı bulunamadı</p>
         <span>
