@@ -3,38 +3,37 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const register = (req, res) => {
-  //kullanıcı zaten kayıtlı mı?
+  //kullanıcı kontrolü
   const q = "SELECT * FROM users WHERE email = ? OR username = ?";
-
   db.query(q, [req.body.email, req.body.username], (err, data) => {
     if (err) return res.status(500).json(err);
-    if (data.length) return res.status(409).json("Kullanıcı zaten kayıtlı");
 
-    //şifreyi hash'le ve kullanıcı oluştur
+    if (data.length) return res.status(409).json("Kullanıcı zaten kayıtlı!");
+
+    //Hash password
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
 
     const q = "INSERT INTO users(`username`,`email`,`password`) VALUES (?)";
-
     const values = [req.body.username, req.body.email, hash];
 
     db.query(q, [values], (err, data) => {
       if (err) return res.status(500).json(err);
-      return res.status(200).json("User has been created.");
+      return res.status(200).json("Hesap oluşturuldu.");
     });
   });
 };
 
 export const login = (req, res) => {
-  //kullanıcı  var mı
+  //CHECK USER
 
-  const q = "SELECT *FROM users WHERE username = ?";
+  const q = "SELECT * FROM users WHERE username = ?";
 
   db.query(q, [req.body.username], (err, data) => {
     if (err) return res.status(500).json(err);
-    if (data.length === 0) return res.status(404).json("Kullanıcı bulunamadı");
+    if (data.length === 0) return res.status(404).json("Kullanıcı bulunamadı!");
 
-    //şifre kontrolü
+    //Check password
     const isPasswordCorrect = bcrypt.compareSync(
       req.body.password,
       data[0].password
@@ -62,5 +61,5 @@ export const logout = (req, res) => {
       secure: true,
     })
     .status(200)
-    .json("Kullanıcı çıkış yaptı.");
+    .json("Çıkış yapıldı");
 };

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BaseUrl } from "../common/constants";
 
 const Register = () => {
@@ -9,6 +9,9 @@ const Register = () => {
     email: "",
     password: "",
   });
+  const [err, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -17,10 +20,9 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${BaseUrl}auth/register`, inputs);
-      console.log(res);
+      navigate("/login");
     } catch (error) {
-      console.log(error);
+      setError(error.response.data);
     }
   };
   return (
@@ -49,7 +51,7 @@ const Register = () => {
           onChange={handleChange}
         ></input>
         <button onClick={handleSubmit}>Giriş Yap</button>
-        <p>Kullanıcı bulunamadı</p>
+        {err && <p>{err}</p>}
         <span>
           Hesabınız var mı? <Link to="/login">Giriş Yap</Link>
         </span>
