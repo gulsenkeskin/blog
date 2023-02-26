@@ -20,6 +20,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      await axios.post(`${BaseUrl}auth/register`, inputs);
       navigate("/login");
     } catch (error) {
       setError(error.response.data);
