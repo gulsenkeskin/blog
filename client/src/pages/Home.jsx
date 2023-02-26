@@ -35,7 +35,7 @@ export const Home = () => {
                 <Link className="link" to={`/post/${post.id}`}>
                   <h1>{post.title}</h1>
                   <p>{getText(post.desc)}</p>
-                  <button>Daha fazla oku</button>
+                  <button>Daha fazla</button>
                 </Link>
               </div>
             </div>

@@ -1,7 +1,5 @@
-import axios from "axios";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { BaseUrl } from "../common/constants";
 import { AuthContext } from "../context/authContext";
 
 const Login = () => {
@@ -48,7 +46,7 @@ const Login = () => {
         <button onClick={handleSubmit}>Giriş Yap</button>
         {err && <p>{err}</p>}
         <span>
-          Hesabınız yok mu? <Link to="/register">Kayıt ol</Link>
+          Hesabınız yok mu? <Link to="/register">Kayıt olun</Link>
         </span>
       </form>
     </div>

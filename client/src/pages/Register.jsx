@@ -54,7 +54,7 @@ const Register = () => {
         <button onClick={handleSubmit}>Giriş Yap</button>
         {err && <p>{err}</p>}
         <span>
-          Hesabınız var mı? <Link to="/login">Giriş Yap</Link>
+          Hesabınız var mı? <Link to="/login">Giriş Yapın</Link>
         </span>
       </form>
     </div>
