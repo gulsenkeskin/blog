@@ -25,14 +25,21 @@ app.post("/api/upload", upload.single("file"), function (req, res) {
   res.status(200).json(file.filename);
 });
 
-// CORS hatasını çözmek için Access-Control-Allow-Origin başlığı ayarlanıyor
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Content-Type, Authorization, Content-Length, X-Requested-With"
   );
-  next();
+
+  // intercept OPTIONS method
+  if ("OPTIONS" == req.method) {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
 });
 
 app.use("/api/auth", authRoutes);
