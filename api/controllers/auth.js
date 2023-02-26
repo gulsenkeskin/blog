@@ -45,18 +45,11 @@ export const login = (req, res) => {
     const token = jwt.sign({ id: data[0].id }, process.env.TOKEN_SECRET_KEY);
     const { password, ...other } = data[0];
 
-    // res
-    //   .cookie("token", token, {
-    //     httpOnly: true,
-    //   })
-    //   .status(200)
-    //   .json(other);
+    console.log(token);
 
     res
       .cookie("token", token, {
         httpOnly: true,
-        secure: true, // HTTPS üzerinde kullanılması önerilir
-        sameSite: "strict", // CSRF saldırılarına karşı koruma için same-site politikası kullanın
       })
       .status(200)
       .json(other);

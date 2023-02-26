@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import { BaseUrl } from "../common/constants";
+import { BaseUrl, Categories } from "../common/constants";
 
 const Write = () => {
   const state = useLocation().state;
@@ -38,17 +38,13 @@ const Write = () => {
             cat,
             img: file ? imgUrl : "",
           })
-        : await axios.post(
-            `${BaseUrl}posts/`,
-            { withCredentials: true },
-            {
-              title,
-              desc: value,
-              cat,
-              img: file ? imgUrl : "",
-              date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
-            }
-          );
+        : await axios.post(`${BaseUrl}posts/`, {
+            title,
+            desc: value,
+            cat,
+            img: file ? imgUrl : "",
+            date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+          });
 
       navigate("/");
     } catch (error) {
@@ -99,72 +95,22 @@ const Write = () => {
         </div>
         <div className="item">
           <h1>Kategori</h1>
-          <div className="cat">
-            <input
-              type="radio"
-              checked={cat === "react"}
-              name="cat"
-              value="react"
-              id="react"
-              onChange={(e) => setCat(e.target.value)}
-            />
-            <label htmlFor="react">React.js</label>
-          </div>
-          <div className="cat">
-            <input
-              type="radio"
-              checked={cat === "flutter"}
-              name="cat"
-              value="flutter"
-              id="flutter"
-              onChange={(e) => setCat(e.target.value)}
-            />
-            <label htmlFor="flutter">Flutter</label>
-          </div>
-          <div className="cat">
-            <input
-              type="radio"
-              name="cat"
-              checked={cat === "net"}
-              value="net"
-              id="net"
-              onChange={(e) => setCat(e.target.value)}
-            />
-            <label htmlFor="net">.Net Core</label>
-          </div>
-          <div className="cat">
-            <input
-              type="radio"
-              name="cat"
-              value="test"
-              checked={cat === "test"}
-              id="test"
-              onChange={(e) => setCat(e.target.value)}
-            />
-            <label htmlFor="test">Test</label>
-          </div>
-          <div className="cat">
-            <input
-              type="radio"
-              name="cat"
-              checked={cat === "teknoloji"}
-              value="teknoloji"
-              id="teknoloji"
-              onChange={(e) => setCat(e.target.value)}
-            />
-            <label htmlFor="teknoloji">Teknoloji</label>
-          </div>
-          <div className="cat">
-            <input
-              type="radio"
-              name="cat"
-              checked={cat === "kitap"}
-              value="kitap"
-              id="kitap"
-              onChange={(e) => setCat(e.target.value)}
-            />
-            <label htmlFor="kitap">Kitap</label>
-          </div>
+
+          {Object.values(Categories).map((category) => {
+            return (
+              <div className="cat">
+                <input
+                  type="radio"
+                  checked={cat === category.value}
+                  name="cat"
+                  value={category.value}
+                  id={category.value}
+                  onChange={(e) => setCat(e.target.value)}
+                />
+                <label htmlFor="react">{category.text}</label>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
