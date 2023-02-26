@@ -5,13 +5,16 @@ import postRoutes from "./routes/posts.js";
 import cookieParser from "cookie-parser";
 import multer from "multer";
 import cors from "cors";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
 app.use(express.json());
-app.use(cookieParser());
+app.use(cors({ credentials: true, origin: process.env.FRONT_END_URL }));
 
-app.use(cors());
+app.use(cookieParser());
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -29,27 +32,12 @@ app.post("/api/upload", upload.single("file"), function (req, res) {
   res.status(200).json(file.filename);
 });
 
-// app.use(function (req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-//   res.header("Access-Control-Allow-Credentials", true);
-//   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Content-Type, Authorization, Content-Length, X-Requested-With"
-//   );
-
-//   // intercept OPTIONS method
-//   if ("OPTIONS" == req.method) {
-//     res.sendStatus(200);
-//   } else {
-//     next();
-//   }
-// });
-
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 
-app.listen(8800, () => {
-  console.log("Connected!");
+const PORT = process.env.PORT || 8800;
+
+app.listen(PORT, () => {
+  console.log(`Listening to ${PORT}...`);
 });

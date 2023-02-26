@@ -1,8 +1,5 @@
 import { db } from "../db.js";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 export const getPosts = (req, res) => {
   const q = req.query.cat
@@ -28,7 +25,7 @@ export const getPost = (req, res) => {
 };
 
 export const addPost = (req, res) => {
-  const token = req.cookies.access_token;
+  const token = req.cookies.token;
   if (!token) return res.status(401).json("Kimlik doğrulanmadı!");
 
   jwt.verify(token, process.env.TOKEN_SECRET_KEY, (err, userInfo) => {
@@ -54,7 +51,7 @@ export const addPost = (req, res) => {
 };
 
 export const deletePost = (req, res) => {
-  const token = req.cookies.access_token;
+  const token = req.cookies.token;
 
   if (!token) return res.status(401).json("Kimlik doğrulanmadı!");
 
@@ -73,7 +70,7 @@ export const deletePost = (req, res) => {
 };
 
 export const updatePost = (req, res) => {
-  const token = req.cookies.access_token;
+  const token = req.cookies.token;
   if (!token) return res.status(401).json("Kimlik doğrulanmadı!");
 
   jwt.verify(token, process.env.TOKEN_SECRET_KEY, (err, userInfo) => {

@@ -38,13 +38,17 @@ const Write = () => {
             cat,
             img: file ? imgUrl : "",
           })
-        : await axios.post(`${BaseUrl}posts/`, {
-            title,
-            desc: value,
-            cat,
-            img: file ? imgUrl : "",
-            date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
-          });
+        : await axios.post(
+            `${BaseUrl}posts/`,
+            { withCredentials: true },
+            {
+              title,
+              desc: value,
+              cat,
+              img: file ? imgUrl : "",
+              date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+            }
+          );
 
       navigate("/");
     } catch (error) {
