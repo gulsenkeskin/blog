@@ -20,7 +20,7 @@ const Write = () => {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      const res = await axios.post("/upload", formData);
+      const res = await axios.post(`${BaseUrl}upload`, formData);
       return res.data;
     } catch (error) {
       console.log(error);
@@ -47,7 +47,9 @@ const Write = () => {
           });
 
       navigate("/");
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
