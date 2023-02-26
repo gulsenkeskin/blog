@@ -18,7 +18,7 @@ const Single = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${BaseUrl}posts${postId}`);
+        const res = await axios.get(`${BaseUrl}posts/${postId}`);
         setPost(res.data);
       } catch (error) {}
     };
@@ -34,14 +34,18 @@ const Single = () => {
     }
   };
 
+  const getText = (html) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent;
+  };
   return (
     <div className="single">
       <div className="content">
-        <img src={post.img} alt="" />
+        <img src={`../upload/${post?.img}`} alt="" />
 
         <div className="user">
-          {post.userImg ? (
-            <img src={post.userImg} alt="" />
+          {post?.userImg ? (
+            <img src={post?.userImg} alt="" />
           ) : (
             <img
               src="https://images.pexels.com/photos/6157049/pexels-photo-6157049.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
@@ -49,22 +53,22 @@ const Single = () => {
             />
           )}
           <div className="info">
-            <span>{post.username}</span>
-            <p>{moment(post.date).fromNow()} önce paylaşıldı</p>
+            <span>{post?.username}</span>
+            <p>{moment(post?.date).fromNow()} önce paylaşıldı</p>
           </div>
           {currentUser.username === post.username && (
             <div className="edit">
-              <Link to={`/write?edit=2`}>
+              <Link to={`/write?edit=2`} state={post}>
                 <img src={Edit} alt="edit"></img>
               </Link>{" "}
               <img src={Delete} onClick={handleDelete} alt="delete"></img>
             </div>
           )}
         </div>
-        <h1>{post.title}</h1>
-        {post.desc}
+        <h1>{post?.title}</h1>
+        {getText(post?.desc)}
       </div>
-      <Menu cat={post.cat}></Menu>
+      <Menu cat={post?.cat}></Menu>
     </div>
   );
 };
