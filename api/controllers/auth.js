@@ -55,6 +55,8 @@ export const login = (req, res) => {
 };
 
 export const logout = (req, res) => {
+  //çıkış yaparken çerezleri temizle
+
   res
     .clearCookie("access_token", {
       sameSite: "none",
